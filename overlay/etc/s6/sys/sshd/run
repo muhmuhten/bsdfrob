@@ -1,0 +1,3 @@
+#!/bin/execlineb -P
+fdmove -c 2 1
+/usr/sbin/sshd -Def sshd_config -p 10001

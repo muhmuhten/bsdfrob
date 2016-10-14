@@ -1,0 +1,18 @@
+#!/bin/sh
+[ "${1+1}" ] || exec csh -l
+
+echo "$0" "$@"
+case $1 in
+	(/etc/rc) ;;
+	(*) exit 0;;
+esac
+
+swapon -a
+mount -wu /
+mount -a
+zfs mount -a
+mount -al
+swapon -aL
+
+xargs hostname < /media/host/hostname
+ifconfig lo0 inet 127.0.0.1 up

@@ -1,0 +1,15 @@
+VersionAddendum Pure girls project
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+AuthorizedKeysFile .ssh/authorized_keys
+PermitRootLogin without-password
+ChallengeResponseAuthentication no
+UsePAM no
+
+UseDNS no
+Subsystem sftp internal-sftp
+
+Match user root
+AuthorizedKeysFile /media/host/authorized_keys .ssh/authorized_keys

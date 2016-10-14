@@ -1,0 +1,9 @@
+[submodule "skarnet/skalibs"]
+	path = skarnet/skalibs
+	url = https://github.com/skarnet/skalibs.git
+[submodule "skarnet/execline"]
+	path = skarnet/execline
+	url = https://github.com/skarnet/execline.git
+[submodule "skarnet/s6"]
+	path = skarnet/s6
+	url = https://github.com/skarnet/s6.git
