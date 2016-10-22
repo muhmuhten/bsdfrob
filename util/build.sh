@@ -23,10 +23,19 @@ build_ska() {
 	--with-lib="$DESTDIR/usr/lib/skalibs" \
 	--with-lib="$DESTDIR/usr/lib/execline")
 
+build_prog() {
+	cd "progs/$1"
+	make "$1"
+	cp -a "$1" "$DESTDIR/$2"
+}
+
+(build_prog gaogao sbin)
+(build_prog subreap bin)
+
 # preimage from a first so we can build without 0/, but note that we need to
 # rebuild before installing
 sh util/preimage.sh a "$DESTDIR" b
-sh util/preimage.sh 0 "$DESTDIR" b
+[ -e 0/COPYRIGHT ] && sh util/preimage.sh 0 "$DESTDIR" b
 
 # apply patches
 diff -ru a b | patch -sp 1 -d "$DESTDIR"

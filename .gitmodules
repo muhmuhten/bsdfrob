@@ -7,3 +7,9 @@
 [submodule "skarnet/s6"]
 	path = skarnet/s6
 	url = https://github.com/skarnet/s6.git
+[submodule "progs/gaogao"]
+	path = progs/gaogao
+	url = https://gitlab.com/muhmuhten/gaogao.git
+[submodule "progs/subreap"]
+	path = progs/subreap
+	url = https://gitlab.com/muhmuhten/subreap.git
