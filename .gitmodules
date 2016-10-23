@@ -13,3 +13,6 @@
 [submodule "progs/subreap"]
 	path = progs/subreap
 	url = https://gitlab.com/muhmuhten/subreap.git
+[submodule "progs/jset"]
+	path = progs/jset
+	url = https://gitlab.com/muhmuhten/jset.git

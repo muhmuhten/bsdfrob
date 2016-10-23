@@ -30,6 +30,9 @@ build_prog() {
 }
 
 (build_prog gaogao sbin)
+(build_prog jat sbin)
+(build_prog jrm sbin)
+(build_prog jset sbin)
 (build_prog subreap bin)
 
 # preimage from a first so we can build without 0/, but note that we need to
