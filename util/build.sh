@@ -28,8 +28,6 @@ build_prog() {
 	make "$1"
 	cp -a "$1" "$DESTDIR/$2"
 }
-
-(build_prog gaogao sbin)
 (build_prog jat sbin)
 (build_prog jrm sbin)
 (build_prog jset sbin)
