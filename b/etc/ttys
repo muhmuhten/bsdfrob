@@ -31,7 +31,7 @@ console	none				unknown	off secure
 #
 ttyv0	"/usr/libexec/getty Pc"		xterm	off secure
 # Virtual terminals
-ttyv1	"/usr/libexec/getty Pc"		xterm	on  secure
+ttyv1	"/usr/libexec/getty Pc"		xterm	off secure
 ttyv2	"/usr/libexec/getty Pc"		xterm	off secure
 ttyv3	"/usr/libexec/getty Pc"		xterm	off secure
 ttyv4	"/usr/libexec/getty Pc"		xterm	off secure
