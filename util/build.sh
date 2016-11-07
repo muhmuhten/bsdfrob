@@ -4,7 +4,7 @@ set -eu
 export DESTDIR="$PWD/1"
 
 # copy overlay
-cp -a overlay/ "$DESTDIR"
+cp -a common/ "$DESTDIR"
 
 # build skaware
 build_ska() {
