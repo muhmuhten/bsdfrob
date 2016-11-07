@@ -7,6 +7,8 @@ case $1 in
 	(*) exit 0;;
 esac
 
+(umask 022; dmesg > /var/run/dmesg.boot)
+
 swapon -a
 mount -wu /
 mount -a
@@ -14,5 +16,7 @@ zfs mount -a
 mount -al
 swapon -aL
 
-xargs hostname < /media/host/hostname
-ifconfig lo0 inet 127.0.0.1 up
+service motd start > /dev/null
+
+(read host < /media/host/hostname; hostname $host)
+service netif start > /dev/null
