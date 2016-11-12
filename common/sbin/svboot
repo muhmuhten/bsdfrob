@@ -6,8 +6,12 @@ redirfd -r 0 /dev/null
 if { mkdir -p $2 } cd $2
 
 foreground {
-	pipeline { tar -cf - -C /etc s6 }
-	tar -xf - --strip-components=2
+	pipeline {
+		cd /etc/s6
+		elglob -0s dirs */*
+		tar -cHf - $dirs
+	}
+	tar -xf - --strip-components=1
 }
 
 foreground { mkfifo -m 600 $1 }
