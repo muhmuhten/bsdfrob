@@ -7,14 +7,13 @@ case $1 in
 	(*) exit 0;;
 esac
 
-(umask 022; dmesg > /var/run/dmesg.boot)
-
-swapon -a
 mount -wu /
 mount -a
 zfs mount -a
 mount -al
-swapon -aL
+swapon -aF /media/host/fstab.swap
+
+(umask 022; dmesg > /var/run/dmesg.boot)
 
 service motd start > /dev/null
 
