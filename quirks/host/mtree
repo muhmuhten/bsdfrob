@@ -1,7 +1,7 @@
 #mtree
 uid=0 gid=0 mode=755 type=link link=run/jail	overlay/jail
 uid=0 gid=0 mode=750 type=dir	overlay/run
-uid=0 gid=0 mode=500 type=file	secrets/etc/ssh/ssh_host_ed25519_key
-uid=0 gid=0 mode=555 type=file	secrets/etc/ssh/ssh_host_ed25519_key.pub
-uid=0 gid=0 mode=500 type=file	secrets/etc/ssh/ssh_host_rsa_key
-uid=0 gid=0 mode=555 type=file	secrets/etc/ssh/ssh_host_rsa_key.pub
+uid=0 gid=0 mode=400 type=file	secrets/etc/ssh/ssh_host_ed25519_key
+uid=0 gid=0 mode=444 type=file	secrets/etc/ssh/ssh_host_ed25519_key.pub
+uid=0 gid=0 mode=400 type=file	secrets/etc/ssh/ssh_host_rsa_key
+uid=0 gid=0 mode=444 type=file	secrets/etc/ssh/ssh_host_rsa_key.pub
