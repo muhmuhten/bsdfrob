@@ -13,9 +13,13 @@ zfs mount -a
 mount -al
 swapon -aF /media/host/fstab.swap
 
-(umask 022; dmesg > /var/run/dmesg.boot)
+kldload ipfw
+ipfw add 65000 set 31 allow ip from any to any
+xargs -L 1 ipfw add < /media/host/firewall
 
 service motd start > /dev/null
 
 (read host < /media/host/hostname; hostname $host)
 service netif start > /dev/null
+
+(umask 022; dmesg > /var/run/dmesg.boot)
