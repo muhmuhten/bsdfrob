@@ -8,7 +8,7 @@ if { mkdir -p $2 } cd $2
 foreground {
 	pipeline {
 		cd /etc/s6
-		elglob -0s dirs */*
+		elglob -0s dirs *
 		tar -cHf - $dirs
 	}
 	tar -xf - --strip-components=1
