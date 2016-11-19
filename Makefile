@@ -4,7 +4,7 @@ build:
 	sh util/build.sh
 
 install:
-	sh util/install.sh
+	xargs sh util/install.sh host < /media/host/quirks || sh util/install.sh jail
 
 repatch:
 	sh util/repatch.sh
