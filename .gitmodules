@@ -9,7 +9,13 @@
 	url = https://github.com/skarnet/s6.git
 [submodule "progs/subreap"]
 	path = progs/subreap
-	url = https://gitlab.com/muhmuhten/subreap.git
+	url = https://github.com/muhmuhten/subreap.git
 [submodule "progs/jset"]
 	path = progs/jset
-	url = https://gitlab.com/muhmuhten/jset.git
+	url = https://github.com/muhmuhten/jset.git
+[submodule "progs/exec0"]
+	path = progs/exec0
+	url = https://github.com/muhmuhten/exec0.git
+[submodule "progs/rol"]
+	path = progs/rol
+	url = https://github.com/muhmuhten/rol.git
