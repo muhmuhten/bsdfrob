@@ -1,5 +1,7 @@
 #!/bin/execlineb -P
-redirfd -w 2 /dev/console fdmove -c 1 2
-if { chmod 750 . }
+s6-envdir -I env
+import -uD /dev/null CONSOLE
+redirfd -w 2 $CONSOLE fdmove -c 1 2
+foreground { chmod 750 . }
 redirfd -r 0 in
 s6-log t . T 1
