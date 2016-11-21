@@ -48,4 +48,4 @@ ttyu3	"/usr/libexec/getty 3wire"	vt100	onifconsole secure
 # Dumb console
 dcons	"/usr/libexec/getty std.9600"	vt100	off secure
 # Supervision tree
-/run/s6	"/sbin/svboot /run/log"		xterm	on
+/run/s6	"/sbin/svboot uncaught/in"	xterm	on

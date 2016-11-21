@@ -1,4 +1,5 @@
 #!/bin/execlineb -P
-redirfd -w 2 /dev/console  fdmove -c 1 2
-redirfd -r 0 /run/log
-s6-log t /run/out T 1
+redirfd -w 2 /dev/console fdmove -c 1 2
+if { chmod 750 . }
+redirfd -r 0 in
+s6-log t . T 1
