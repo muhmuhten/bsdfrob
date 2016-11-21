@@ -1,3 +1,4 @@
 # Device	Mount	FStype	Options		Dump	Pass#
+tmpfs		/jail	tmpfs	rw,noexec	0	0
 tmpfs		/media	tmpfs	rw,noexec	0	0
 tmpfs		/run	tmpfs	rw,nosuid	0	0
