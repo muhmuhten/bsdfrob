@@ -1,5 +1,6 @@
 #!/bin/sh
 [ "${1+1}" ] || exec csh -l
+# no -eu, because failure probably bricks the system
 
 echo "$0" "$@"
 case $1 in
@@ -17,9 +18,8 @@ swapon -aF /media/host/fstab.swap
 
 service devfs start > /dev/null
 
-kldload ipfw
-ipfw add 65000 set 31 allow ip from any to any
-xargs -L 1 ipfw add < /media/host/firewall
+kldload pf
+pfctl -ef /media/host/pf.conf
 
 service motd start > /dev/null
 
