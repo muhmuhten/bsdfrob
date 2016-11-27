@@ -9,6 +9,7 @@ set -eux
 : dir="${dir=${2-/media/$$}}"
 : old="${old="old"}"
 : quirks="$quirks"
+: bootfs="${bootfs=0}"
 
 zfs clone "$pool/$ver" "$pool/$tmp"
 mkdir -p "$dir"
@@ -22,4 +23,4 @@ zfs list -r "$pool/$old" 2>/dev/null && zfs rename "$pool/$old" "$pool/$vol/p"
 zfs rename "$pool/$vol" "$pool/$old"
 zfs rename "$pool/$tmp" "$pool/$vol"
 zfs promote "$pool/$vol"
-zpool set bootfs="$pool/$vol" "${pool%%/*}"
+[ "$bootfs" = 0 ] || zpool set bootfs="$pool/$vol" "${pool%%/*}"

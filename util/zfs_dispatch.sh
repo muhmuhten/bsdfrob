@@ -3,7 +3,7 @@ set -eu
 
 case $2 in
 (host)
-	export pool="$1/0" quirks="host `cat /media/host/quirks`"
+	export pool="$1/0" bootfs=1 quirks="host `cat /media/host/quirks`"
 	shift 2; exec sh util/zfs_rebuild.sh "$@"
 	;;
 (jail)
