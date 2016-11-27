@@ -1,32 +1,32 @@
 #!/bin/sh
 set -eu
 
-export DESTDIR="$PWD/1"
+: build="${build="$PWD/BUILD"}"
 
 # copy overlay
-cp -a common/ "$DESTDIR"
+cp -a common/ "$build"
 
 # build skaware
 build_ska() {
 	cd "skarnet/$1"; shift
 	[ -f config.mak ] || ./configure "$@"
-	gmake it install LDFLAGS=-s
+	gmake it install LDFLAGS=-s DESTDIR="$build"
 }
 (build_ska skalibs --disable-shared)
 (build_ska execline \
 	--with-sysdeps=../skalibs/sysdeps.cfg \
-	--with-include="$DESTDIR/usr/include" \
-	--with-lib="$DESTDIR/usr/lib/skalibs")
+	--with-include="$build/usr/include" \
+	--with-lib="$build/usr/lib/skalibs")
 (build_ska s6 \
 	--with-sysdeps=../skalibs/sysdeps.cfg \
-	--with-include="$DESTDIR/usr/include" \
-	--with-lib="$DESTDIR/usr/lib/skalibs" \
-	--with-lib="$DESTDIR/usr/lib/execline")
+	--with-include="$build/usr/include" \
+	--with-lib="$build/usr/lib/skalibs" \
+	--with-lib="$build/usr/lib/execline")
 
 build_prog() {
 	cd "progs/$1"
 	make "$1"
-	cp -a "$1" "$DESTDIR/$2"
+	cp -a "$1" "$build/$2"
 }
 (build_prog jset sbin)
 (build_prog jat sbin)
