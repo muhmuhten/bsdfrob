@@ -3,11 +3,11 @@
 set -eux
 
 : pool="$pool"
-: ver="${ver="`freebsd-version | sed 's/-.*-/@/; s/-.*/@p0/'`"}"
-: vol="${vol="${ver%@*}"}"
-: tmp="${tmp="new$$"}"
+: ver="${ver=`freebsd-version | sed 's/-.*-/@/; s/-.*/@p0/'`}"
+: vol="${vol=${ver%@*}}"
+: tmp="${tmp=new$$}"
 : dir="${dir=${2-/media/$$}}"
-: old="${old="old"}"
+: old="${old=old}"
 
 zfs clone "$pool/$ver" "$pool/$tmp"
 mkdir -p "$dir"
@@ -19,7 +19,7 @@ cp /etc/resolv.conf "$dir/tmp/etc"
 mount -t unionfs -o below "$dir/tmp/etc" "$dir/etc"
 mount -t nullfs "$dir/tmp/freebsd-update" "$dir/var/db/freebsd-update"
 env PAGER=cat chroot "$dir" freebsd-update fetch install
-new="`"$dir/bin/freebsd-version" | sed 's/-.*-/@/; s/-.*/@p0/'`"
+new=`"$dir/bin/freebsd-version" | sed 's/-.*-/@/; s/-.*/@p0/'`
 umount "$dir/var/db/freebsd-update" "$dir/etc" "$dir/tmp" "$dir/dev" "$dir"
 rmdir "$dir"
 zfs snap "$pool/$tmp@${new##*@}"

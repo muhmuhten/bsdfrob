@@ -3,11 +3,11 @@
 set -eux
 
 : pool="$pool"
-: ver="${ver="`freebsd-version | sed 's/-.*-/@/; s/-.*/@p0/'`"}"
-: vol="${vol="${ver%@*}"}"
-: tmp="${tmp="new$$"}"
+: ver="${ver=`freebsd-version | sed 's/-.*-/@/; s/-.*/@p0/'`}"
+: vol="${vol=${ver%@*}}"
+: tmp="${tmp=new$$}"
 : dir="${dir=${2-/media/$$}}"
-: old="${old="old"}"
+: old="${old=old}"
 : quirks="$quirks"
 : bootfs="${bootfs=0}"
 
