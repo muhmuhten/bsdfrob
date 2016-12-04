@@ -2,11 +2,7 @@
 [ "${1+1}" ] || exec csh -l
 # no -eu, because failure probably bricks the system
 
-echo "$0" "$@"
-case $1 in
-	(/etc/rc) ;;
-	(*) exit 0;;
-esac
+[ "$1" = /etc/rc ] || exit 0
 
 sysctl net.inet.ip.portrange.reservedhigh=0
 
@@ -24,6 +20,13 @@ pfctl -ef /media/host/pf.conf
 service motd start > /dev/null
 
 (read host < /media/host/hostname; hostname $host)
+
+# brings up localhost &c., magic
 service netif start > /dev/null
+
+for script in /media/host/after/*; do
+	[ -f "$script" ] || continue
+	. "$script"
+done
 
 (umask 022; dmesg > /var/run/dmesg.boot)
