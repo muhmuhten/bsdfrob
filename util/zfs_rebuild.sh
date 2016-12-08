@@ -11,13 +11,14 @@ set -eux
 : quirks="$quirks"
 : bootfs="${bootfs=0}"
 
-zfs clone "$pool/$ver" "$pool/$tmp"
+zfs clone -o readonly=off "$pool/$ver" "$pool/$tmp"
 mkdir -p "$dir"
 mount -t zfs "$pool/$tmp" "$dir"
 env DESTDIR="$dir" sh util/install.sh $quirks
 umount "$dir"
 rmdir "$dir"
 zfs snap "$pool/$tmp@tip"
+zfs inherit readonly "$pool/$tmp"
 
 zfs list -r "$pool/$old" 2>/dev/null && zfs rename "$pool/$old" "$pool/$vol/p"
 zfs rename "$pool/$vol" "$pool/$old"

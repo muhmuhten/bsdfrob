@@ -9,7 +9,7 @@ set -eux
 : dir="${dir=${2-/media/$$}}"
 : old="${old=old}"
 
-zfs clone "$pool/$ver" "$pool/$tmp"
+zfs clone -o readonly=off "$pool/$ver" "$pool/$tmp"
 mkdir -p "$dir"
 mount -t zfs "$pool/$tmp" "$dir"
 mount -t devfs -o ruleset=4 devfs "$dir/dev"
@@ -23,6 +23,7 @@ new=`"$dir/bin/freebsd-version" | sed 's/-.*-/@/; s/-.*/@p0/'`
 umount "$dir/var/db/freebsd-update" "$dir/etc" "$dir/tmp" "$dir/dev" "$dir"
 rmdir "$dir"
 zfs snap "$pool/$tmp@${new##*@}"
+zfs inherit readonly "$pool/$tmp"
 
 zfs list -r "$pool/$old" 2>/dev/null && zfs rename "$pool/$old" "$pool/$vol/p"
 zfs rename "$pool/$vol" "$pool/$old"
