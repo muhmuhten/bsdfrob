@@ -19,3 +19,6 @@
 [submodule "progs/rol"]
 	path = progs/rol
 	url = https://github.com/muhmuhten/rol.git
+[submodule "progs/setlogin"]
+	path = progs/setlogin
+	url = https://github.com/muhmuhten/setlogin.git

@@ -31,5 +31,7 @@ build_prog() {
 (build_prog jset sbin)
 (build_prog jat sbin)
 (build_prog jrm sbin)
+(build_prog setlogin sbin)
 (build_prog exec0 bin)
 (build_prog rol bin)
+(build_prog subreap bin)
