@@ -1,5 +1,5 @@
 #!/bin/execlineb -P
 fdmove -c 2 1
 s6-envdir -I env
-import -uD 10001 PORT
+importas -uD 10001 PORT PORT
 /usr/sbin/sshd -Def sshd_config -p $PORT

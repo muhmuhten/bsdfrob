@@ -1,6 +1,6 @@
 #!/bin/execlineb -P
 s6-envdir -I env
-import -uD /dev/null CONSOLE
+importas -uD /dev/null CONSOLE CONSOLE
 redirfd -w 2 $CONSOLE fdmove -c 1 2
 foreground { chmod 750 . }
 redirfd -r 0 in
