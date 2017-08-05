@@ -10,16 +10,18 @@ mount -wu /
 mount -a
 zfs mount -a
 mount -al
-swapon -aF /media/host/fstab.swap
+swapon -a
 
 service devfs start > /dev/null
 
-kldload pf
-pfctl -ef /media/host/pf.conf
+if [ -e /media/host/pf.conf ]; then
+	kldload pf
+	pfctl -ef /media/host/pf.conf
+fi
 
 service motd start > /dev/null
 
-(read host < /media/host/hostname; hostname $host)
+(read host < /media/host/hostname && hostname "$host")
 
 # brings up localhost &c., magic
 service netif start > /dev/null
