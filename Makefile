@@ -1,7 +1,7 @@
 it:	build
 
 build:
-	sh util/build.sh
+	exec sh util/build.sh
 
 clean:
 	git clean -xdf
