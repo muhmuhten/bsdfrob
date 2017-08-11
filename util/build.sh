@@ -27,7 +27,7 @@ build_ska s6 \
 make -C progs/jset jset jat jrm
 make -C progs/setlogin setlogin
 make -C progs/subreap subreap
-cp -l \
+cp -a \
 	progs/jset/jset progs/jset/jat progs/jset/jrm \
 	progs/setlogin/setlogin \
 	progs/subreap/subreap \
