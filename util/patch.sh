@@ -16,20 +16,11 @@ old=${vol%/*}/old
 zfs clone -o readonly=off "$ver" "$tmp"
 mkdir -p "$dir"
 mount -t zfs "$tmp" "$dir"
-mount -t devfs -o ruleset=4 devfs "$dir/dev"
-mount -t tmpfs -o mode=0700 tmpfs "$dir/tmp"
-mkdir -p "$dir/tmp/etc" "$dir/tmp/etcunderlay" "$dir/tmp/freebsd-update"
-mount -t nullfs "$dir/tmp/freebsd-update" "$dir/var/db/freebsd-update"
-mount -t nullfs "$dir/etc" "$dir/tmp/etc"
-mount -t nullfs "$dir/tmp/etcunderlay" "$dir/etc"
-cp -a /etc/resolv.conf "$dir/etc"
-mount -t nullfs -o union "$dir/tmp/etc" "$dir/etc"
 
-if env PAGER=cat chroot "$dir" freebsd-update fetch install; then
+if env PAGER=cat freebsd-update -b "$dir" fetch install; then
 	new=$tmp@`"$dir/bin/freebsd-version" | cut -d- -f3`
 	zfs snap "$new"
 fi
-chroot "$dir" umount etc etc tmp/etc var/db/freebsd-update tmp dev
 
 env DESTDIR="$dir" sh util/install.sh "$@"
 zfs snap "$tmp@tip"
