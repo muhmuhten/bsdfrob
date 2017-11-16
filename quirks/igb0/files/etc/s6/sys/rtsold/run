@@ -1,0 +1,4 @@
+#!/bin/execlineb -P
+fdmove -c 2 1
+if { ifconfig igb0 inet6 accept_rtadv }
+rtsold -df igb0
