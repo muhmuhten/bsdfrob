@@ -12,8 +12,6 @@ zfs mount -a
 mount -al
 swapon -a
 
-service devfs start > /dev/null
-
 if [ -e /media/host/pf.conf ]; then
 	kldload pf
 	pfctl -ef /media/host/pf.conf
@@ -26,7 +24,7 @@ service motd start > /dev/null
 # brings up localhost &c., magic
 service netif start > /dev/null
 
-for script in /media/host/after/*; do
+for script in /media/host/after/* /libexec/after/*; do
 	[ -f "$script" ] || continue
 	. "$script"
 done
