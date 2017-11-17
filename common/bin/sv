@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+nodash() {
+	case ${1-1} in
+	(-*) return 1 ;;
+	esac
+}
+dothething() {
+	case ${1-1} in
+	(stat)
+		"s6-sv$@" ;;
+	(-*)
+		s6-svc "$@" ;;
+	(1) ;;
+	(*)
+		shift
+		dothething "$@" ;;
+	esac
+}
+case ${1--} in
+(-*) exit 0 ;;
+(/*)
+	dothething "$@" "$1" ;;
+(*)
+	dothething "$@" "${SVDIR=/run/s6}/$1"
+esac
