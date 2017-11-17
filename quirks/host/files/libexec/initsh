@@ -17,8 +17,6 @@ if [ -e /media/host/pf.conf ]; then
 	pfctl -ef /media/host/pf.conf
 fi
 
-service motd start > /dev/null
-
 (read host < /media/host/hostname && hostname "$host")
 
 # brings up localhost &c., magic
