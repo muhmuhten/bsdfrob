@@ -4,23 +4,11 @@
 
 [ "$1" = /etc/rc ] || exit 0
 
-sysctl net.inet.ip.portrange.reservedhigh=0
-
 mount -wu /
 mount -a
 zfs mount -a
 mount -al
 swapon -a
-
-if [ -e /media/host/pf.conf ]; then
-	kldload pf
-	pfctl -ef /media/host/pf.conf
-fi
-
-(read host < /media/host/hostname && hostname "$host")
-
-# brings up localhost &c., magic
-service netif start > /dev/null
 
 for script in /media/host/after/* /libexec/after/*; do
 	[ -f "$script" ] || continue
