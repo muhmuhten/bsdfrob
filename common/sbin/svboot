@@ -18,7 +18,7 @@ foreground { mkfifo -m 600 $1 }
 background {
 	redirfd -r 0 $1 redirfd -r 0 /dev/null
 	redirfd -a 2 $1 fdmove -c 1 2
-	tryexec { $@ }
+	$@
 }
 redirfd -a 2 $1 fdmove -c 1 2
 emptyenv -p s6-svscan -St0
