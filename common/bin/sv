@@ -17,10 +17,17 @@ dothething() {
 		dothething "$@" ;;
 	esac
 }
+
+if ! [ ${SVDIR+1} ]; then
+	for SVDIR in ~/.svscan /run/s6; do
+		[ -d "$SVDIR" ] && break
+	done
+fi
+
 case ${1--} in
 (-*) exit 0 ;;
 (/*)
 	dothething "$@" "$1" ;;
 (*)
-	dothething "$@" "${SVDIR=/run/s6}/$1"
+	dothething "$@" "$SVDIR/$1"
 esac
