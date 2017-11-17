@@ -9,11 +9,11 @@ case $1 in
 esac
 vol=$prefix/`freebsd-version | cut -d- -f1`
 ver=`zfs list -HS creation -o name -rt snap "$vol" | sed -n '/@p/{p;q;}'`
-tmp=${vol%/*}/new$$
 dir=/media/tmp$$
-old=${vol%/*}/old
+tmp=$pool/z/${vol#*/}-new`date +%s`.$$
+old=$pool/z/${vol#*/}-old`date +%s`.$$
 
-zfs clone -o readonly=off "$ver" "$tmp"
+zfs clone -p "$ver" "$tmp"
 mkdir -p "$dir"
 mount -t zfs "$tmp" "$dir"
 
@@ -24,12 +24,10 @@ fi
 
 env DESTDIR="$dir" sh util/install.sh "$@"
 zfs snap "$tmp@tip"
-zfs inherit readonly "$tmp"
 umount "$dir"
 rmdir "$dir"
 
-zfs list "$old" 2>/dev/null && zfs rename "$old" "$vol/p"
-zfs rename "$vol" "$old"
+zfs rename -p "$vol" "$old"
 zfs rename "$tmp" "$vol"
 zfs promote "$vol"
 
