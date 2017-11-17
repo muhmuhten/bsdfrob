@@ -1,4 +1,4 @@
-#!/bin/execlineb -S2
+#!/bin/execlineb -s2
 env -i
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 redirfd -w 2 /dev/null fdmove -c 1 2
@@ -18,7 +18,7 @@ foreground { mkfifo -m 600 $1 }
 background {
 	redirfd -r 0 $1 redirfd -r 0 /dev/null
 	redirfd -a 2 $1 fdmove -c 1 2
-	tryexec { $3 }
+	tryexec { $@ }
 }
 redirfd -a 2 $1 fdmove -c 1 2
 emptyenv -p s6-svscan -St0
