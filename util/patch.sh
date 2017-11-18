@@ -7,7 +7,7 @@ case $1 in
 (jail) prefix=$pool/i ;;
 (*) ! echo want host/jail >&2 ;;
 esac
-vol=$prefix/`freebsd-version | cut -d- -f1`
+vol=$prefix/`uname -r | cut -d- -f1`
 ver=`zfs list -HS creation -o name -rt snap "$vol" | sed -n '/@p/{p;q;}'`
 dir=/media/tmp$$
 tmp=$pool/z/${vol#*/}-new`date +%s`.$$
