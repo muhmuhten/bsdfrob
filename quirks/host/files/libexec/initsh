@@ -1,18 +1,13 @@
 #!/bin/sh
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 [ "${1+1}" ] || exec csh -l
-# no -eu, because failure probably bricks the system
 
-[ "$1" = /etc/rc ] || exit 0
+case $1 in
+(/etc/*)
+	rc=/libexec${1#/etc} ;;
+(*)
+	rc=$1 ;;
+esac
 
-mount -wu /
-mount -a
-zfs mount -a
-mount -al
-swapon -a
-
-for script in /media/host/after/* /libexec/after/*; do
-	[ -f "$script" ] || continue
-	. "$script"
-done
-
-(umask 022; dmesg > /var/run/dmesg.boot)
+[ -f "$rc" ] || exit 0
+exec "$rc" "$@"

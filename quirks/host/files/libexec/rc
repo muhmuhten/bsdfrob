@@ -1,0 +1,16 @@
+#!/bin/sh
+# no -eu, because failure probably bricks the system
+
+mount -wu /
+mount -a
+zfs mount -a
+mount -al
+swapon -a
+
+for script in /media/host/after/* /libexec/after/*; do
+	[ -f "$script" ] || continue
+	. "$script"
+done
+
+umask 022
+exec dmesg > /var/run/dmesg.boot
