@@ -5,7 +5,7 @@ sysctl -n kern.version | {
 	echo "$ostype $osrelease (${build##*/}) $rest"
 
 	{
-		read line
+		IFS= read line
 		case $line in
 		("$ostype "*) ;;
 		(*)
