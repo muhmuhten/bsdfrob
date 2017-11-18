@@ -3,6 +3,10 @@ set -eux
 
 pool=`mount -pF /dev/null | sed -n 1s,/.\*,,p`
 case $1 in
+(host) boot=yes ;;
+(test) shift ;;
+ esac
+case $1 in
 (host) prefix=$pool/0; set -- "$@" `cat /media/host/quirks` ;;
 (jail) prefix=$pool/i ;;
 (*) ! echo want host/jail >&2 ;;
@@ -31,6 +35,7 @@ zfs rename -p "$vol" "$old"
 zfs rename "$tmp" "$vol"
 zfs promote "$vol"
 
-case $prefix in
-(*/0) zpool set bootfs="$vol" "$pool" ;;
+case ${boot-no} in
+([Nn][Oo]) ;;
+(*) zpool set bootfs="$vol" "$pool" ;;
 esac
